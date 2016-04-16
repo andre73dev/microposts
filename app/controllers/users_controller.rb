@@ -20,7 +20,20 @@ class UsersController < ApplicationController
   end
   
   def edit
-    @user = User.find(params[:id])
+    @user = User.find_by_id(params[:id])
+    if @user == current_user
+      render 'edit'
+    else    
+      flash[:danger] = "Invalid User!"
+      redirect_to root_path
+    end
+
+    #if (@user != nil && current_user == @user)
+    #  render 'edit'
+    #else
+    #  flash[:danger] = "Invalid User!"
+    #  redirect_to root_path
+    #end
   end
   
   def update
@@ -29,7 +42,7 @@ class UsersController < ApplicationController
       flash[:success] = "Update Profile"
       redirect_to @user
     else
-      render user_path
+      render 'edit'
     end
   end    
   
