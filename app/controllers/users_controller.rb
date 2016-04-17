@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:edit, :update]
+  before_action :collect_user, only: [:edit, :update]
   
   def show # 追加
     @user = User.find(params[:id])
@@ -20,20 +20,7 @@ class UsersController < ApplicationController
   end
   
   def edit
-    @user = User.find_by_id(params[:id])
-    if @user == current_user
-      render 'edit'
-    else    
-      flash[:danger] = "Invalid User!"
-      redirect_to root_path
-    end
-
-    #if (@user != nil && current_user == @user)
-    #  render 'edit'
-    #else
-    #  flash[:danger] = "Invalid User!"
-    #  redirect_to root_path
-    #end
+    @user = User.find(params[:id])
   end
   
   def update
@@ -50,6 +37,14 @@ class UsersController < ApplicationController
   
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :location)
+  end
+  
+  def collect_user
+    user = User.find(params[:id])
+    if user != current_user
+      flash[:danger] = "Invalid user!"
+      redirect_to root_url
+    end
   end
 
 end
