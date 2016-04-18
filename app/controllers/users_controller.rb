@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :collect_user, only: [:edit, :update]
+  before_action :collect_user, only: [:edit, :update, :show]
   
   def show # 追加
     @user = User.find(params[:id])
