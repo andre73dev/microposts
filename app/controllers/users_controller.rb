@@ -1,9 +1,15 @@
 class UsersController < ApplicationController
-  before_action :collect_user, only: [:edit, :update, :show, :followings, :followers]
+  before_action :collect_user, only: [:edit, :update, :followings, :followers]
   
   def show # 追加
-    @user = User.find(params[:id])
-    @microposts = @user.microposts.order(created_at: :desc)
+    if User.exists?(params[:id])
+      @user = User.find(params[:id]) 
+      if @user.microposts.any?
+        @microposts = @user.microposts.order(created_at: :desc)
+      end  
+    else
+      redirect_to root_url
+    end      
   end
   
   def new
