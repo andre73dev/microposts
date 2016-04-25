@@ -1,8 +1,10 @@
 <div class="col-md-6">
   <div id="follower-<%= follower.id %>">
     <section class="user_info">
-      <%= gravatar_for follower , size: 50 %>
-      <div><%= follower.name %></div>
+      <%= link_to user_path(follower.id) do %>
+        <%= gravatar_for follower , size: 50 %>
+      <% end %>
+      <div><%= link_to follower.name, user_path(follower.id) %></div>
       <div><%= follower.email %></div>
     </section>
   </div>

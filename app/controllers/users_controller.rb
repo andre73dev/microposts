@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :collect_user, only: [:edit, :update, :followings, :followers]
+  before_action :collect_user, only: [:edit, :update]
   
   def show # 追加
     if User.exists?(params[:id])
