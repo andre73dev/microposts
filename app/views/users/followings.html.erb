@@ -1,0 +1,19 @@
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h1>
+        <%= gravatar_for @user %>
+        <%= @user.name %>
+      </h1>
+    </section>
+  </aside>
+  <div class="col-md-8">
+    <% if @user.following_users.any? %>
+      <div class="row">
+        <% @followings.each do |following| %>
+          <%= render partial: 'users/following', locals: { following: following } %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
