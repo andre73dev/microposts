@@ -9,11 +9,13 @@
   </aside>
   <div class="col-md-8">
     <% if @user.follower_users.any? %>
+      <%= page_entries_info @followers %>
       <div class="row">
         <% @followers.each do |follower| %>
           <%= render partial: 'users/follower', locals: { follower: follower } %>
         <% end %>
       </div>
+      <%= paginate @followers %>
     <% end %>
   </div>
 </div>
